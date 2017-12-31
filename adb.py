@@ -11,7 +11,7 @@ currentTime = time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime(time.time()))
 print currentTime
 
 # 文件名
-excelname = "demo_" + currentTime + ".xls"
+excelName = "demo_" + currentTime + ".xls"
 # sheet名
 sheet_name = 'demo'
 # 表头
@@ -21,12 +21,6 @@ isGoOn = True
 
 style = xlwt.easyxf('font:height 240, color-index red, bold on;align: wrap on, vert centre, horiz center')
 
-
-# for ff in flies:
-#     print "adb install -r " + ff
-#     text = os.popen("adb install -r app/" + ff)
-#     time.sleep(2)
-#     print text.read();
 
 def get_current_time():
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -48,7 +42,7 @@ def set_style(name, height, bold=False):
 def excel_init():
     try:
         # 打开文件
-        readWorkbook = xlrd.open_workbook(excelname)
+        readWorkbook = xlrd.open_workbook(excelName)
     except:
         print u"demo.xls 文件不存在"
         isHaveExcel = False
@@ -57,7 +51,7 @@ def excel_init():
         isHaveExcel = True
 
     if isHaveExcel is False:
-        create_excel(excelname, sheet_name, row0)
+        create_excel(excelName, sheet_name, row0)
         return
 
     try:
@@ -72,13 +66,13 @@ def excel_init():
         isHaveSheet = True
 
     if isHaveSheet is False:
-        create_excel(excelname, sheet_name, row0)
+        create_excel(excelName, sheet_name, row0)
         return
 
     # 获取所有row
     print(u"一共有：%d行" % demo_sheet.nrows)
     if demo_sheet.nrows == 0:
-        create_excel(excelname, sheet_name, row0)
+        create_excel(excelName, sheet_name, row0)
     else:
         print demo_sheet.row_values(0)
         arr = []
@@ -89,7 +83,7 @@ def excel_init():
             print u"索引行标准"
         else:
             print u"索引行不标准"
-            create_excel(excelname, sheet_name, row0)
+            create_excel(excelName, sheet_name, row0)
 
 
 def create_excel(excelName, sheetName, row0):
@@ -111,11 +105,11 @@ def create_excel(excelName, sheetName, row0):
 
 
 def writeExcel(row, col, str, style=Style.default_style):
-    rb = xlrd.open_workbook(excelname, formatting_info=True)
+    rb = xlrd.open_workbook(excelName, formatting_info=True)
     wb = copy(rb)
     ws = wb.get_sheet(0)
     ws.write(row, col, str, style)
-    wb.save(excelname)
+    wb.save(excelName)
 
 
 def write_loop():
@@ -146,19 +140,3 @@ def write_loop():
 excel_init()
 
 write_loop()
-
-
-
-
-# p1 = write_excel_init()
-# print p1.get_workbook()
-# print p1.get_sheet()
-#
-# text = "adb devices"
-# print text
-# content = os.popen(text)
-# time.sleep(2)
-# print content.read()
-#
-# # write_excel()
-# print '创建demo.xlsx文件成功'
